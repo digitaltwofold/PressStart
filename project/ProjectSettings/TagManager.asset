@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Platform
+  - Traps
   - 
   - 
   - 
@@ -40,4 +40,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 212339827
+    locked: 0
+  - name: platform
+    uniqueID: 2742532861
+    locked: 0
+  - name: Enemy
+    uniqueID: 541234285
+    locked: 0
+  - name: Player
+    uniqueID: 2843658059
+    locked: 0
+  - name: Deco
+    uniqueID: 1519547799
+    locked: 0
+  - name: Foreground
+    uniqueID: 3497678985
     locked: 0

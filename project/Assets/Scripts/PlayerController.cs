@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public static Rigidbody2D rb;
+    private Animator anim;
     private BoxCollider2D bc;
     public float horizontalMovement;
     private LayerMask platformLM;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
         platformLM = LayerMask.GetMask("Platform");
         //get components
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
         //Player ist facing right at the beginning of the scene
         facingRight = true;
@@ -53,9 +55,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Get input from user and check for collsisions
+        //Get input from user, change animation, and check for collsisions
         InputCheck();
         flipPlayer(horizontalMovement);
+        UpdateAnimation();
         WallSlideCheck();
         slideJump = new Vector2(3 * -facingDir, 7);
         
@@ -135,6 +138,29 @@ public class PlayerController : MonoBehaviour
                 Invoke("SetWalljumpBool",1f);
             }
         }
+    }
+    //animations function 
+    private void UpdateAnimation()
+    {
+        //check if player is walking 
+        if (velocity.x != 0){
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
+        //check if player triggers jump
+        if (!GroundCheck())
+        {
+            anim.SetBool("isGrounded", false);
+            anim.SetFloat("yVelocity", rb.velocity.y);
+        }
+        else
+        {
+            anim.SetBool("isGrounded", true);
+        }
+        anim.SetBool("isWallSliding", isWallsliding);
     }
         //flip player sprite
        private void flipPlayer(float move)
